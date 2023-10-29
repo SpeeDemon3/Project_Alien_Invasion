@@ -24,7 +24,7 @@ class AlienInvasion:
         while True:
             # Busca eventos de teclado y raton
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT: # Para finalizar cuando se cierre la ventana
                     sys.exit()
 
             # Redibuja la pantalla en cada paso por el bucle
