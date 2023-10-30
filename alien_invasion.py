@@ -45,9 +45,13 @@ class AlienInvasion:
                 if event.key == pygame.K_RIGHT: # Comprobamos si la tecla pulsada es la derecha
                     # Mueve la nave a la derecha
                     self.ship.moving_right = True # Si el jugador pulsa la tecla cambiamos el valor de la bandera a True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True # Si el jugador pulsa la tecla cambiamos el valor de la bandera a True
             elif event.type == pygame.KEYUP: # Si el evento es igual a dejar de pulsar una tecla
                 if event.key == pygame.K_RIGHT:
                     self.ship.moving_right = False # Si el jugador deja de pulsar la tecla cambiamos el valor de la bandera a False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
 
     def _update_screen(self):
         """Actualiza las imagenes en la pantalla y cambia a la pantalla nueva"""
