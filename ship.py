@@ -7,6 +7,7 @@ class Ship:
         """Inicializa la nave y configura su posicion inicial"""
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
+        self.settings = ai_game.settings
 
         # Carga la imagen de la nave y obtiene su rect
         self.image = pygame.image.load('images/hero_1.bmp')
@@ -15,6 +16,9 @@ class Ship:
         # Coloca inicialmente cada nave nueva en el centro de la parte inferior de la pantalla
         self.rect.midbottom = self.screen_rect.midbottom
 
+        # Guarda un valor decimal para la posicion horizontal de la nave
+        self.x = float(self.rect.x)
+
         # Bandera de movimiento
         self.moving_right = False
         self.moving_left = False
@@ -22,9 +26,12 @@ class Ship:
     def update(self):
         """Actualiza la posicion de la nave en funcion de la bandera de movimiento"""
         if self.moving_right:
-            self.rect.x += 1 # Aumentamos el valor del eje X en 1
+            self.x += self.settings.ship_speed # Aumentamos el valor del eje X en 1
         if self.moving_left:
-            self.rect.x -= 1 # Disminuimos el valor del eje X en 1
+            self.x -= self.settings.ship_speed # Disminuimos el valor del eje X en 1
+
+        # Actualiza el objeto rect de self.x
+        self.rect.x = self.x
 
 
     def blitme(self):
