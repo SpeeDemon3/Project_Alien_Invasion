@@ -27,6 +27,9 @@ class AlienInvasion:
             # Busca eventos de teclado y raton
             self._check_events()
 
+            # Comprueba si hay eventos y actualiza la posicion de la nave en la pantalla
+            self.ship.update()
+
             # Redibuja la pantalla en cada paso por el bucle
             self._update_screen()
 
@@ -38,6 +41,13 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # Para finalizar cuando se cierre la ventana
                 sys.exit()
+            elif event.type == pygame.KEYDOWN: # Si el evento es igual a pulsar una tecla
+                if event.key == pygame.K_RIGHT: # Comprobamos si la tecla pulsada es la derecha
+                    # Mueve la nave a la derecha
+                    self.ship.moving_right = True # Si el jugador pulsa la tecla cambiamos el valor de la bandera a True
+            elif event.type == pygame.KEYUP: # Si el evento es igual a dejar de pulsar una tecla
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False # Si el jugador deja de pulsar la tecla cambiamos el valor de la bandera a False
 
     def _update_screen(self):
         """Actualiza las imagenes en la pantalla y cambia a la pantalla nueva"""
