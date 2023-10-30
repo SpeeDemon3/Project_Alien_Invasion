@@ -25,16 +25,24 @@ class AlienInvasion:
         """Inicia le bucle principal para el juego"""
         while True:
             # Busca eventos de teclado y raton
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT: # Para finalizar cuando se cierre la ventana
-                    sys.exit()
+            self._check_events()
 
             # Redibuja la pantalla en cada paso por el bucle
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme() # Llamamos al metodo blitme() para que la nave aparezca encima del fondo
+            self._update_screen()
 
             # Hace visible la ultima pantalla dibujada
             pygame.display.flip()
+
+    def _check_events(self):
+        """Responde a pulsaciones de teclas y eventos de raton"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # Para finalizar cuando se cierre la ventana
+                sys.exit()
+
+    def _update_screen(self):
+        """Actualiza las imagenes en la pantalla y cambia a la pantalla nueva"""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()  # Llamamos al metodo blitme() para que la nave aparezca encima del fondo
 
 if __name__ == '__main__':
     #Hace una instance del juego y lo ejecuta
