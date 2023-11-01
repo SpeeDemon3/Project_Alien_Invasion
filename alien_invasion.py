@@ -34,20 +34,27 @@ class AlienInvasion:
             # Comprueba si hay eventos y actualiza la posicion de la nave en la pantalla
             self.ship.update()
 
-            # Llama a bullet.update() para cada bala colocada en el grupo bullets
-            self.bullets.update()
-
-            # Se deshace de las balas que han desaparecido para que no consuman recursos
-            for bullet in self.bullets.copy():
-                # Comprobamos si el valor bottom del react tiene un valor de 0, lo que indica que la bala a superado el borde superior de la pantalla
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            # Actualiza la posicion de las balas
+            self._update_bullets()
 
             # Redibuja la pantalla en cada paso por el bucle
             self._update_screen()
 
             # Hace visible la ultima pantalla dibujada
             pygame.display.flip()
+
+    def _update_bullets(self):
+        """Actualiza la posicion de las balas y se deshace de las viejas"""
+        # Actualiza las posiciones de las balas
+        # Llama a bullet.update() para cada bala colocada en el grupo bullets
+        self.bullets.update()
+
+        # Se deshace de las balas que han desaparecido
+        # Se deshace de las balas que han desaparecido para que no consuman recursos
+        for bullet in self.bullets.copy():
+            # Comprobamos si el valor bottom del react tiene un valor de 0, lo que indica que la bala a superado el borde superior de la pantalla
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
 
     def _update_screen(self):
@@ -98,8 +105,10 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Crea una bala nueva y la añade al grupo de balas"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        # Si hay 5 balas en pantalla no se podra disparar hasta que las 5 desaparezcan
+        if len(self.bullets) < self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 
 if __name__ == '__main__':
