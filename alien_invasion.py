@@ -5,6 +5,7 @@ import pygame
 from Proyectos.Alien_Invasion.settings import Settings
 from Proyectos.Alien_Invasion.ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     """Clase general para gestionar los recursos y el comportamiento del juego"""
@@ -24,6 +25,11 @@ class AlienInvasion:
         # Creamos un grupo de balas para dibujarlas en la pantalla y actualizar la posicion de cada bala
         self.bullets = pygame.sprite.Group()
 
+        # Grupo de alienigenas
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
+
 
     def run_game(self):
         """Inicia le bucle principal para el juego"""
@@ -42,6 +48,14 @@ class AlienInvasion:
 
             # Hace visible la ultima pantalla dibujada
             pygame.display.flip()
+
+    def _create_fleet(self):
+        """Crea una flota de aliens y predators"""
+        # Crea un alien
+        alien = Alien(self)
+        self.aliens.add(alien)
+
+
 
     def _update_bullets(self):
         """Actualiza la posicion de las balas y se deshace de las viejas"""
@@ -65,6 +79,8 @@ class AlienInvasion:
         # El metodo sprites() devuelve una lista de todos los sprites del grupo bullets
         for bullet in self.bullets.sprites():
             bullet.draw_bullet() # Utilizamos el metodo draw_bullet() para pintarlas en pantalla
+
+        self.aliens.draw(self.screen)
 
 
 
