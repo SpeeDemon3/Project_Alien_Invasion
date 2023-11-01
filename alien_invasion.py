@@ -37,6 +37,12 @@ class AlienInvasion:
             # Llama a bullet.update() para cada bala colocada en el grupo bullets
             self.bullets.update()
 
+            # Se deshace de las balas que han desaparecido para que no consuman recursos
+            for bullet in self.bullets.copy():
+                # Comprobamos si el valor bottom del react tiene un valor de 0, lo que indica que la bala a superado el borde superior de la pantalla
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+
             # Redibuja la pantalla en cada paso por el bucle
             self._update_screen()
 
