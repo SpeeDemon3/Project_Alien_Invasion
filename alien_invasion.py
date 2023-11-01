@@ -36,17 +36,6 @@ class AlienInvasion:
             # Hace visible la ultima pantalla dibujada
             pygame.display.flip()
 
-    def _check_events(self):
-        """Responde a pulsaciones de teclas y eventos de raton"""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # Para finalizar cuando se cierre la ventana
-                sys.exit()
-            elif event.type == pygame.KEYDOWN: # Si el evento es igual a pulsar una tecla
-                self.check_keydown_events(event)
-
-            elif event.type == pygame.KEYUP: # Si el evento es igual a dejar de pulsar una tecla
-                self._check_keyup_events(event)
-
 
     def _update_screen(self):
         """Actualiza las imagenes en la pantalla y cambia a la pantalla nueva"""
@@ -56,11 +45,13 @@ class AlienInvasion:
     def _check_events(self):
         """Responde a pulsaciones de teclado y eventos de raton"""
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: # Para finalizar cuando se cierre la ventana
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+
+            elif event.type == pygame.KEYDOWN: # Si el evento es igual a pulsar una tecla
                 self.check_keydown_events(event)
-            elif event.type == pygame.KEYUP:
+
+            elif event.type == pygame.KEYUP: # Si el evento es igual a dejar de pulsar una tecla
                 self._check_keyup_events(event)
 
     def check_keydown_events(self, event):
@@ -68,13 +59,18 @@ class AlienInvasion:
         if event.key == pygame.K_RIGHT:  # Comprobamos si la tecla pulsada es la derecha
             # Mueve la nave a la derecha
             self.ship.moving_right = True  # Si el jugador pulsa la tecla cambiamos el valor de la bandera a True
+
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True  # Si el jugador pulsa la tecla cambiamos el valor de la bandera a True
+
+        elif event.key == pygame.K_q: # Al pulsar la tecla Q cerramos el programa
+            sys.exit()
 
     def _check_keyup_events(self, event):
         """Responde a la liberacion de teclas"""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False  # Si el jugador deja de pulsar la tecla cambiamos el valor de la bandera a False
+
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
